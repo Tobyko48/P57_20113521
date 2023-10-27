@@ -1,7 +1,7 @@
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.io.File;
+import java.io.FilenameFilter;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Pikachu
  */
-public class Card {
+public class Card implements HandInterface{
     private final String suit;
     private final String rank;
 
@@ -34,34 +34,39 @@ public class Card {
         return rank + " of " + suit;
     }
     
-     public int getValue() {
+    public int getValue() {
         switch (rank) {
-            case "2":
-                return 2;
-            case "3":
-                return 3;
-            case "4":
-                return 4;
-            case "5":
-                return 5;
-            case "6":
-                return 6;
-            case "7":
-                return 7;
-            case "8":
-                return 8;
-            case "9":
-                return 9;
-            case "10":
-            case "Jack":
-            case "Queen":
-            case "King":
-                return 10;
             case "Ace":
-                return 11; // You can set it to 1 if the hand value exceeds 21
+                return 11;
+            case "King":
+            case "Queen":
+            case "Jack":
+                return 10;
             default:
-                return 0; // Handle invalid rank gracefully
+                return Integer.parseInt(rank);
+        }   
+    }
+    
+    public String getImagePath() {
+        File dir = new File("resources/cards");
+        String fileName = findFileIgnoreCase(dir, rank + "_of_" + suit + ".png");
+        if (fileName != null) {
+            return dir + File.separator + fileName;
         }
+        return null; 
+    }
+    
+    private static String findFileIgnoreCase(File dir, String fileName) {
+        String[] matchingFiles = dir.list(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.equalsIgnoreCase(fileName);
+            }
+        });
+        if (matchingFiles != null && matchingFiles.length > 0) {
+            return matchingFiles[0];
+        }
+        return null;
     }
 }
 
