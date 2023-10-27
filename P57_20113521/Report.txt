@@ -16,3 +16,8 @@ Blackjack game - Upgraded from project 1
 2 Interfaces (stores methods)
 -HandInterface
 -PlayerInterface
+
+Database
+-BlackjackProfilesDB
+username pdc
+password pdc
