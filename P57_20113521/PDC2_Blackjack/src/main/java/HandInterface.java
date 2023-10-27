@@ -8,5 +8,7 @@
  * @author Pikachu
  */
 public interface HandInterface {
-    
+    String getSuit();
+    String getRank();
+    int getValue();
 }
