@@ -1,0 +1,18 @@
+GitHub URL: https://github.com/Tobyko48/P57_20113521
+
+Blackjack game - Upgraded from project 1
+
+9 Classes
+-BlackjackGUI (GUI components and game core game logic)
+-BlackjackGame (main entrypoint for game)
+-Card (card variables (suits/ranks) and methods, implements HandInterface)
+-Dealer (dealer/ai opponenet play logic, extends player class)
+-Deck (Creates and shuffles deck)
+-LoginUI (Login user interface)
+-Player (player hand and play methods, implements player interface)
+-Profile (user profile stores username, password, wins/losses)
+-ProfileDatabase (creates database table for profiles, connects to database, save/update profile, getprofile)
+
+2 Interfaces (stores methods)
+-HandInterface
+-PlayerInterface
