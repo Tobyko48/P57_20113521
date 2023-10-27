@@ -8,21 +8,13 @@
  * @author Pikachu
  */
 
-import java.util.List;
-
+import java.util.ArrayList;
 
 public interface PlayerInterface {
-    void addCard(Card card);
-    List<Card> getHand();
-    String getName();
-    int getHandValue();
-    void setPassword(String password);
-     int getWins();
-    void setWins(int wins);
-    int getLosses();
-    void setLosses(int losses);
-    public void clearHand();
-
+    ArrayList<Card> getHand();
+    void hit(Deck deck);
+    int sum();
+    boolean hasBusted();
 }
 
 
