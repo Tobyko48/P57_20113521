@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Fri Oct 27 21:28:29 NZDT 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-018b-703f-c544-00001f48e768 
+Fri Oct 27 21:56:40 NZDT 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-018b-7059-918c-00001f483b18 
 on database directory C:\Users\xkrym\Desktop\P57_20113521\P57_20113521\PDC2_Blackjack\BlackjackProfilesDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@2cdf8d8a 
 Loaded from file:/C:/Users/xkrym/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
 java.vendor=Oracle Corporation

@@ -12,13 +12,13 @@ import java.io.FilenameFilter;
  *
  * @author Pikachu
  */
-public class Card implements HandInterface{
-    private final String suit;
-    private final String rank;
+public class Card implements HandInterface {
+    private String suit;
+    private String rank;
 
-    public Card(String suit, String rank) {
-        this.suit = suit;
+    public Card(String rank, String suit) {
         this.rank = rank;
+        this.suit = suit;
     }
 
     public String getSuit() {
@@ -29,11 +29,6 @@ public class Card implements HandInterface{
         return rank;
     }
 
-    @Override
-    public String toString() {
-        return rank + " of " + suit;
-    }
-    
     public int getValue() {
         switch (rank) {
             case "Ace":
@@ -44,7 +39,12 @@ public class Card implements HandInterface{
                 return 10;
             default:
                 return Integer.parseInt(rank);
-        }   
+        }
+    }
+
+    @Override
+    public String toString() {
+        return rank + " of " + suit;
     }
     
     public String getImagePath() {
@@ -68,6 +68,7 @@ public class Card implements HandInterface{
         }
         return null;
     }
+    
 }
 
 

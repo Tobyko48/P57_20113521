@@ -25,12 +25,12 @@ public class Player implements PlayerInterface {
     public ArrayList<Card> getHand() {
         return hand;
     }
-    
+
     @Override
     public void hit(Deck deck) {
         hand.add(deck.draw());
     }
-    
+
     @Override
     public int sum() {
         int totalValue = 0;

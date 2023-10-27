@@ -14,7 +14,7 @@ import java.awt.event.*;
 import java.sql.SQLException;
 import javax.swing.border.LineBorder;
 
-public class LoginUI extends JFrame{
+public class LoginUI extends JFrame {
     private JTextField usernameField = new JTextField(20);
     private JPasswordField passwordField = new JPasswordField(20);
     private JButton loginButton = new JButton("Login");
@@ -109,14 +109,15 @@ public class LoginUI extends JFrame{
             } else {
                 JOptionPane.showMessageDialog(null, "Profile already exists.");
             }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(null, "An error occurred while accessing the database.");
-            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error occurred while accessing the database.");
         }
-    });
+    }
+});
 
         setLocationRelativeTo(null);
         setVisible(true);
     }
 }
+

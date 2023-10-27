@@ -15,28 +15,27 @@ import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 
 public class BlackjackGUI extends JFrame {
-    private Player user;
-    private Player dealer;
-    private Deck deck;
-    private Profile userProfile;
-    private boolean gameEnded; 
-    int cardWidth = 75;
-    int cardHeight = 100;
-    
     private JButton hitButton = new JButton("Hit");
     private JButton standButton = new JButton("Stand");
     private JButton playAgainButton = new JButton("Play Again");
     private JButton quitButton = new JButton("Quit");
-    
     private JPanel playerCardPanel = new JPanel(new FlowLayout());
     private JPanel dealerCardPanel = new JPanel(new FlowLayout());
-    
+    int cardWidth = 75;
+    int cardHeight = 100;
+
+    private Player user;
+    private Player dealer;
+    private Deck deck;
+    private Profile userProfile;
     private JLabel winLossLabel = new JLabel();
     private JLabel userTotalLabel = new JLabel();
     private JLabel dealerTotalLabel = new JLabel();
     private JLabel resultImageLabel = new JLabel();
 
     private JTextArea gameOutput = new JTextArea(20, 40);
+
+    private boolean gameEnded; 
 
     public BlackjackGUI(Profile profile) {
         this.gameEnded = true;
@@ -104,12 +103,12 @@ public class BlackjackGUI extends JFrame {
         initializeGame();
         setVisible(true);
     }
-    
-    public void initializeGame() {
+
+    private void initializeGame() {
         deck = new Deck();
         user = new Player(deck);
         dealer = new Player(deck);
-        
+
         gameOutput.setText("");
         winLossLabel.setText("Wins: " + userProfile.getWins() + " Losses: " + userProfile.getLosses());
         winLossLabel.setForeground(Color.DARK_GRAY);
@@ -120,7 +119,7 @@ public class BlackjackGUI extends JFrame {
 
         updateCardDisplay();
     }
-    
+
     private void hitAction() {
         user.hit(deck);
         gameOutput.append("\nYou drew a card: " + user.getHand().get(user.getHand().size() - 1) + "\n");
@@ -137,7 +136,7 @@ public class BlackjackGUI extends JFrame {
             playAgainButton.setEnabled(true);
         }
     }
-    
+
     private void standAction() {
         gameOutput.append("\nDealer's turn:\n");
         while (dealer.sum() < 17) {
@@ -165,7 +164,7 @@ public class BlackjackGUI extends JFrame {
         gameEnded = true;
         playAgainButton.setEnabled(true);
     }
-    
+
     private void playAgainAction() {
         initializeGame();
         hitButton.setEnabled(true);
@@ -238,4 +237,3 @@ public class BlackjackGUI extends JFrame {
         button.setPreferredSize(new Dimension(80, 35));
     }
 }
-
