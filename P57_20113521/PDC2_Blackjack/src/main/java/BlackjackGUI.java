@@ -21,22 +21,21 @@ public class BlackjackGUI extends JFrame {
     private JButton quitButton = new JButton("Quit");
     private JPanel playerCardPanel = new JPanel(new FlowLayout());
     private JPanel dealerCardPanel = new JPanel(new FlowLayout());
-    int cardWidth = 75;
-    int cardHeight = 100;
+    private int cardWidth = 125;
+    private int cardHeight = 180;
 
     private Player user;
     private Player dealer;
     private Deck deck;
     private Profile userProfile;
     private JLabel winLossLabel = new JLabel();
-    private JLabel userTotalLabel = new JLabel();
     private JLabel dealerTotalLabel = new JLabel();
+    private JLabel userTotalLabel = new JLabel();
     private JLabel resultImageLabel = new JLabel();
-
     private JTextArea gameOutput = new JTextArea(20, 40);
+    private boolean gameEnded;
 
-    private boolean gameEnded; 
-
+    // initialize gui, componenets, layout, and event listeners
     public BlackjackGUI(Profile profile) {
         this.gameEnded = true;
         this.userProfile = profile;
@@ -48,14 +47,18 @@ public class BlackjackGUI extends JFrame {
         setLayout(new BorderLayout());
 
         JPanel topPanel = new JPanel(new BorderLayout());
+        winLossLabel.setForeground(Color.WHITE);
         topPanel.add(winLossLabel, BorderLayout.WEST);
         topPanel.add(quitButton, BorderLayout.EAST);
+        topPanel.setBackground(Color.DARK_GRAY);
+                topPanel.setForeground(Color.WHITE);
+
+        add(topPanel, BorderLayout.NORTH);
 
         gameOutput.setEditable(false);
         gameOutput.setForeground(Color.WHITE);
         gameOutput.setBackground(Color.DARK_GRAY);
-        gameOutput.setFont(new Font("Arial", Font.PLAIN, 16)); // Set font and size
-
+        gameOutput.setFont(new Font("Arial", Font.PLAIN, 16));
         JScrollPane scrollPane = new JScrollPane(gameOutput);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
@@ -65,28 +68,43 @@ public class BlackjackGUI extends JFrame {
         JLabel yourLabel = new JLabel("Your Cards:");
         yourLabel.setForeground(Color.WHITE);
 
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.add(topPanel);
-        mainPanel.add(scrollPane);
-        mainPanel.add(dealerLabel); 
-        mainPanel.add(dealerCardPanel);
-        mainPanel.add(userTotalLabel);
-        mainPanel.add(yourLabel); 
-        mainPanel.add(playerCardPanel);
-        mainPanel.add(dealerTotalLabel);
-        mainPanel.add(resultImageLabel, BorderLayout.CENTER);
+        // ChatGPT generated this
+        JPanel mainPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.anchor = GridBagConstraints.CENTER;
+
+        mainPanel.add(dealerLabel, gbc);
+        gbc.gridy++;
+        mainPanel.add(dealerCardPanel, gbc);
+        gbc.gridy++;
+        mainPanel.add(dealerTotalLabel, gbc);
+        gbc.gridy++;
+        mainPanel.add(yourLabel, gbc);
+        gbc.gridy++;
+        mainPanel.add(playerCardPanel, gbc);
+        gbc.gridy++;
+        mainPanel.add(userTotalLabel, gbc);
+        gbc.gridy++;
+        gbc.fill = GridBagConstraints.NONE;
+        mainPanel.add(resultImageLabel, gbc);
+        // ChatGPT generated above
+        
         resultImageLabel.setVisible(false);
         mainPanel.setBackground(Color.DARK_GRAY);
+
+        add(mainPanel, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(hitButton);
         buttonPanel.add(standButton);
         buttonPanel.add(playAgainButton);
-        buttonPanel.add(quitButton); 
-        buttonPanel.setBackground(Color.DARK_GRAY); 
-
-        add(mainPanel, BorderLayout.CENTER);
+        buttonPanel.add(quitButton);
+        buttonPanel.setBackground(Color.DARK_GRAY);
         add(buttonPanel, BorderLayout.SOUTH);
 
         hitButton.addActionListener(e -> hitAction());
@@ -94,7 +112,6 @@ public class BlackjackGUI extends JFrame {
         playAgainButton.addActionListener(e -> playAgainAction());
         quitButton.addActionListener(e -> quitAction());
 
-        // Set button styles
         setButtonStyles(hitButton);
         setButtonStyles(standButton);
         setButtonStyles(playAgainButton);
@@ -104,6 +121,7 @@ public class BlackjackGUI extends JFrame {
         setVisible(true);
     }
 
+    // sets up new round of game
     private void initializeGame() {
         deck = new Deck();
         user = new Player(deck);
@@ -111,15 +129,16 @@ public class BlackjackGUI extends JFrame {
 
         gameOutput.setText("");
         winLossLabel.setText("Wins: " + userProfile.getWins() + " Losses: " + userProfile.getLosses());
-        winLossLabel.setForeground(Color.DARK_GRAY);
-        userTotalLabel.setText("Your total: " + user.sum());
-        userTotalLabel.setForeground(Color.WHITE);
+        winLossLabel.setForeground(Color.WHITE);       
         dealerTotalLabel.setText("Dealer's total: " + dealer.getHand().get(0).getValue());
         dealerTotalLabel.setForeground(Color.WHITE);
+        userTotalLabel.setText("Your total: " + user.sum());
+        userTotalLabel.setForeground(Color.WHITE);
 
         updateCardDisplay();
     }
 
+    // player hit action
     private void hitAction() {
         user.hit(deck);
         gameOutput.append("\nYou drew a card: " + user.getHand().get(user.getHand().size() - 1) + "\n");
@@ -137,6 +156,7 @@ public class BlackjackGUI extends JFrame {
         }
     }
 
+    // player stand action
     private void standAction() {
         gameOutput.append("\nDealer's turn:\n");
         while (dealer.sum() < 17) {
@@ -146,7 +166,8 @@ public class BlackjackGUI extends JFrame {
         dealerTotalLabel.setText("Dealer's total: " + dealer.sum());
 
         updateCardDisplay();
-
+        
+        // determine win
         if (dealer.sum() > 21 || user.sum() > dealer.sum()) {
             gameOutput.append("You win!\n");
             userProfile.addWin();
@@ -165,6 +186,7 @@ public class BlackjackGUI extends JFrame {
         playAgainButton.setEnabled(true);
     }
 
+    // reset game for new round
     private void playAgainAction() {
         initializeGame();
         hitButton.setEnabled(true);
@@ -175,15 +197,18 @@ public class BlackjackGUI extends JFrame {
         gameEnded = false;
     }
 
+    //exit application
     private void quitAction() {
         System.exit(0);
     }
-
+    
+    // disable hit and stand button when game over
     private void disableGameButtons() {
         hitButton.setEnabled(false);
         standButton.setEnabled(false);
     }
 
+    // updates cards display for dealer and player
     private void updateCardDisplay() {
         playerCardPanel.removeAll();
         dealerCardPanel.removeAll();
