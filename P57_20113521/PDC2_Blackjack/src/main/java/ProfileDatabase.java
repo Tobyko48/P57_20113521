@@ -16,11 +16,20 @@ public class ProfileDatabase {
     }
 
     public static void createTable() {
-        String createTableSQL = "CREATE TABLE PROFILES (USERNAME VARCHAR(255), PASSWORD VARCHAR(255), WINS INT, LOSSES INT)";
+        String tableName = "PROFILES";
+        String createTableSQL = "CREATE TABLE " + tableName + " (USERNAME VARCHAR(255), PASSWORD VARCHAR(255), WINS INT, LOSSES INT)";
         
         try (Connection connection = DriverManager.getConnection("jdbc:derby:BlackjackProfilesDB;create=true", "pdc", "pdc");
              Statement statement = connection.createStatement()) {
+            
+            // Check if the table already exists
+            DatabaseMetaData metadata = connection.getMetaData();
+            ResultSet tables = metadata.getTables(null, null, tableName, null);
+        
+            // Create table if doesnt exist
+            if (!tables.next()) {
             statement.executeUpdate(createTableSQL);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
