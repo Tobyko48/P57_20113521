@@ -104,7 +104,7 @@ public class LoginUI extends JFrame {
         ProfileDatabase database = new ProfileDatabase();
         try {
             if (database.getProfile(username) == null) {
-                new Profile(username, password);  // This will also save the profile
+                new Profile(username, password);  
                 JOptionPane.showMessageDialog(null, "Profile created.");
             } else {
                 JOptionPane.showMessageDialog(null, "Profile already exists.");

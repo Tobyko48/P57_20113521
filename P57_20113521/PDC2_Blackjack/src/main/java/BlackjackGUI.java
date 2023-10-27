@@ -69,10 +69,10 @@ public class BlackjackGUI extends JFrame {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.add(topPanel);
         mainPanel.add(scrollPane);
-        mainPanel.add(dealerLabel); // Add the "Dealer's Cards:" label
+        mainPanel.add(dealerLabel); 
         mainPanel.add(dealerCardPanel);
         mainPanel.add(userTotalLabel);
-        mainPanel.add(yourLabel); // Add the "Your Cards:" label
+        mainPanel.add(yourLabel); 
         mainPanel.add(playerCardPanel);
         mainPanel.add(dealerTotalLabel);
         mainPanel.add(resultImageLabel, BorderLayout.CENTER);
@@ -83,8 +83,8 @@ public class BlackjackGUI extends JFrame {
         buttonPanel.add(hitButton);
         buttonPanel.add(standButton);
         buttonPanel.add(playAgainButton);
-        buttonPanel.add(quitButton); // Add the quitButton
-        buttonPanel.setBackground(Color.DARK_GRAY); // Set button panel background color
+        buttonPanel.add(quitButton); 
+        buttonPanel.setBackground(Color.DARK_GRAY); 
 
         add(mainPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
