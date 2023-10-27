@@ -14,6 +14,7 @@ import java.util.Collections;
 public class Deck {
     private ArrayList<Card> cards;
 
+    // initialize deck of cards
     public Deck() {
         cards = new ArrayList<Card>();
         for (String suit : new String[]{"Hearts", "Diamonds", "Clubs", "Spades"}) {
@@ -24,6 +25,7 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
+    // draw card to dealer/player hand, remove card from deck 
     public Card draw() {
         return cards.remove(cards.size() - 1);
     }

@@ -16,7 +16,9 @@ public class ProfileDatabase {
     }
 
     public static void createTable() {
+        // table name
         String tableName = "PROFILES";
+        // sql query to create table
         String createTableSQL = "CREATE TABLE " + tableName + " (USERNAME VARCHAR(255), PASSWORD VARCHAR(255), WINS INT, LOSSES INT)";
         
         try (Connection connection = DriverManager.getConnection("jdbc:derby:BlackjackProfilesDB;create=true", "pdc", "pdc");
@@ -36,17 +38,21 @@ public class ProfileDatabase {
     }
     
     public Profile getProfile(String username) throws SQLException {
+        // sql query to retrieve profile based on username
         String sql = "SELECT * FROM profiles WHERE username = ?";
+        
         try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
+            
             if (rs.next()) {
+                // extract profile information
                 String hashedPassword = rs.getString("password");
                 int wins = rs.getInt("wins");
                 int losses = rs.getInt("losses");
                 return new Profile(username, hashedPassword, wins, losses);
             }
-            return null;
+            return null; // no profiles found
         }
     }
 

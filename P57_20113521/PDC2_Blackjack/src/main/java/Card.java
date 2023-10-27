@@ -29,6 +29,7 @@ public class Card implements HandInterface {
         return rank;
     }
 
+    //value of card
     public int getValue() {
         switch (rank) {
             case "Ace":
@@ -47,6 +48,7 @@ public class Card implements HandInterface {
         return rank + " of " + suit;
     }
     
+    // get image of card
     public String getImagePath() {
         File dir = new File("resources/cards");
         String fileName = findFileIgnoreCase(dir, rank + "_of_" + suit + ".png");
@@ -56,6 +58,7 @@ public class Card implements HandInterface {
         return null; 
     }
     
+    // ignore case sensitive
     private static String findFileIgnoreCase(File dir, String fileName) {
         String[] matchingFiles = dir.list(new FilenameFilter() {
             @Override

@@ -14,6 +14,7 @@ public class Dealer extends Player {
         super(deck);
     }
 
+    // dealer hits if total hand value < 17
     public boolean shouldHit() {
         return sum() < 17;
     }

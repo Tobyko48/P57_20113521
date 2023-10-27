@@ -27,11 +27,13 @@ public class Player implements PlayerInterface {
     }
 
     @Override
+    //draw card
     public void hit(Deck deck) {
         hand.add(deck.draw());
     }
 
     @Override
+    // total value of hand
     public int sum() {
         int totalValue = 0;
         int aces = 0;
@@ -48,6 +50,7 @@ public class Player implements PlayerInterface {
         return totalValue;
     }
 
+    // value over 21, lost
     public boolean hasBusted() {
         return sum() > 21;
     }

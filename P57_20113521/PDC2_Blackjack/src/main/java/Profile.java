@@ -14,6 +14,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 public class Profile {
+    // variablies storing user information and game stats
     private String username;
     private String hashedPassword;
     private int wins;
@@ -55,6 +56,7 @@ public class Profile {
         return wins;
     }
 
+    // increment win
     public void addWin() {
         this.wins++;
         saveProfile();
@@ -64,11 +66,13 @@ public class Profile {
         return losses;
     }
 
+    // increment loss
     public void addLoss() {
         this.losses++;
         saveProfile();
     }
 
+    //save and update profile
     private void saveProfile() {
         try {
             database.saveOrUpdateProfile(this);
@@ -77,6 +81,7 @@ public class Profile {
         }
     }
 
+    // load profile
     public static Profile loadProfile(String username, String password) {
         ProfileDatabase database = new ProfileDatabase();
         try {
@@ -91,6 +96,7 @@ public class Profile {
         }
     }
 
+    // hash password
     private static String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");          
